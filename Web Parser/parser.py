@@ -3,9 +3,6 @@ from bs4 import BeautifulSoup as bs
 import json
 import re
 
-# define OK 200
-
-
 def parser(contents):
 
     # data storage to contain list of dictionary of computer_info
@@ -56,8 +53,14 @@ with open('./output.json', 'a', newline='\n', encoding='utf8') as f_Write:
         data = bs(contents, 'html.parser')
         slides = data.find_all(class_="slide")
         parsed_content = parser(slides)
-        print("%s : FINISHED" % (html))
         json.dump(parsed_content, f_Write, ensure_ascii=False)
+        items = data.find_all("figure", class_=re.compile(
+                "^offer-thumb has-footer new-th"))
+        parsed_content = parser(items)
+        json.dump(parsed_content, f_Write, ensure_ascii=False)
+        print("%s : FINISHED" % (html))
+
+
 
     #From page-2 
     cnt = 2
@@ -74,13 +77,13 @@ with open('./output.json', 'a', newline='\n', encoding='utf8') as f_Write:
             parsed_content = parser(items)
             #This will stop parsing process if page exists, but nothign to parse
             if len(parsed_content) == 0:
-                print("IT IS DONE!")
+                print("...")
                 exit()
             json.dump(parsed_content, f_Write, ensure_ascii=False)
             print("%spage-%s : FINISHED" % (html, cnt))
 
         except:
-            print("%spage-%s : PROBLEM" % (html, cnt))
+            print("%spage-%s : STOP" % (html, cnt))
             print("You can try again from where it stopped")
             print("Copy and paste the URL")
             ERROR_CODE = 1  # exit while loop
