@@ -21,7 +21,7 @@ def parser(contents):
         if price == None:
             try:
                 price = each.find(
-                    "span", class_="price-bn price-cp").get_text()
+                    "span", class_="price-cp").get_text()
             except AttributeError:
                 try:
                     price = each.find("span", class_="price-bn-old").get_text()
