@@ -22,7 +22,7 @@ result = 111111(63) = ?
 string: ?
 ```
 
-This code was made for the Hack The Box challenge : impossible password.
+This code was written for the Hack The Box challenge : impossible password.
 
 
 To give more clarity to what are the operations doing.
